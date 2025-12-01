@@ -98,7 +98,7 @@ export const Contact = () => {
                     <p className="text-muted-foreground">
                       Resposta rápida para suas dúvidas
                     </p>
-                    <a target="_blank" rel="noopener noreferrer" className="text-primary hover:underline mt-2 inline-block" href="https://wa.me/555391631843">
+                    <a target="_blank" rel="noopener noreferrer" className="text-primary hover:underline mt-2 inline-block" href="https://wa.me/5553991631843">
                       +55 53 99163-1843 
                     </a>
                   </div>
