@@ -11,6 +11,7 @@ type Project = {
   description: string;
   tags: string[];
   thumbnail: string;
+  video?: string; // suporte a vídeo
   features: string[];
   technologies: string[];
 };
@@ -27,11 +28,13 @@ export const Projects = () => {
       title: "Automação CRM + WhatsApp",
       description: "Sistema completo de atendimento automatizado para concessionária",
       tags: ["n8n", "CRM", "WhatsApp"],
-      thumbnail: "/placeholder.svg",
+      thumbnail: "/crm-carros.png",
+      video: "/crm-carros-video.mp4", // <<< aqui está o vídeo
       features: [
         "Respostas automáticas via WhatsApp",
         "Qualificação de leads com IA",
         "Integração com CRM existente",
+        "Gestão de veículos interativa",
         "Dashboard de métricas em tempo real",
         "Follow-up inteligente baseado em comportamento",
       ],
@@ -42,7 +45,8 @@ export const Projects = () => {
       title: "Agendamento Inteligente",
       description: "Sistema de lembretes e gestão de consultas para clínica",
       tags: ["n8n", "Consultório", "IA"],
-      thumbnail: "/placeholder.svg",
+      thumbnail: "/secretaria.png",
+      video: "/video-secretaria.mp4",
       features: [
         "Lembretes automáticos por WhatsApp",
         "Confirmação de presença via chatbot",
@@ -54,10 +58,11 @@ export const Projects = () => {
     },
     {
       id: 3,
-      title: "Geração de Documentos Fiscais",
+      title: "CRM + Geração de Documentos Fiscais",
       description: "Automação completa para escritório contábil",
       tags: ["n8n", "Contábil", "APIs"],
-      thumbnail: "/placeholder.svg",
+      thumbnail: "/crm-contabil.png",
+      video: "/crm-contabil-video.mp4",
       features: [
         "Extração automática de dados de NF-e",
         "Classificação com IA",
@@ -142,7 +147,7 @@ export const Projects = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                
+
                 <div className="p-6 space-y-4">
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
@@ -155,13 +160,13 @@ export const Projects = () => {
                       </Badge>
                     ))}
                   </div>
-                  
+
                   <h3 className="text-xl font-display font-semibold text-foreground group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  
+
                   <p className="text-muted-foreground text-sm">{project.description}</p>
-                  
+
                   <div className="flex items-center gap-2 text-primary text-sm font-medium">
                     Ver case completo
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -183,16 +188,26 @@ export const Projects = () => {
                   {selectedProject.title}
                 </DialogTitle>
               </DialogHeader>
-              
+
               <div className="space-y-6">
-                <img
-                  src={selectedProject.thumbnail}
-                  alt={selectedProject.title}
-                  className="w-full rounded-lg"
-                />
-                
+
+                {/* Media: vídeo ou imagem */}
+                {selectedProject.video ? (
+                  <video
+                    src={selectedProject.video}
+                    controls
+                    className="w-full rounded-lg"
+                  />
+                ) : (
+                  <img
+                    src={selectedProject.thumbnail}
+                    alt={selectedProject.title}
+                    className="w-full rounded-lg"
+                  />
+                )}
+
                 <p className="text-muted-foreground">{selectedProject.description}</p>
-                
+
                 <div>
                   <h4 className="font-semibold mb-3">Funcionalidades</h4>
                   <ul className="space-y-2">
@@ -204,7 +219,7 @@ export const Projects = () => {
                     ))}
                   </ul>
                 </div>
-                
+
                 <div>
                   <h4 className="font-semibold mb-3">Tecnologias</h4>
                   <div className="flex flex-wrap gap-2">
@@ -215,7 +230,7 @@ export const Projects = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <Button
                   onClick={() => {
                     setSelectedProject(null);

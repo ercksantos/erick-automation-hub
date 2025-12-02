@@ -50,7 +50,7 @@ export const Footer = () => {
             <h4 className="font-semibold mb-3">Conecte-se</h4>
             <div className="flex gap-3">
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/erickps-dev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
@@ -58,7 +58,7 @@ export const Footer = () => {
                 <Linkedin className="w-5 h-5 text-primary" />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/ercksantos"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
@@ -66,7 +66,7 @@ export const Footer = () => {
                 <Github className="w-5 h-5 text-primary" />
               </a>
               <a
-                href="mailto:contato@erick.ai"
+                href="mailto:erickai.contato@gmail.com"
                 className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
               >
                 <Mail className="w-5 h-5 text-primary" />
