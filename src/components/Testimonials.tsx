@@ -14,7 +14,7 @@ export const Testimonials = () => {
       content:
         "A automação com IA reduziu nosso tempo de resposta de 4 horas para 2 minutos. As conversões aumentaram 35% no primeiro mês.",
       metric: "+35% conversão",
-      avatar: "/placeholder.svg",
+      avatar: "/avatars/carlos.jpg",
     },
     {
       name: "Dra. Ana Santos",
@@ -23,7 +23,7 @@ export const Testimonials = () => {
       content:
         "As faltas em consultas caíram 60% com os lembretes automatizados. Economizamos horas de ligações manuais toda semana.",
       metric: "-60% faltas",
-      avatar: "/placeholder.svg",
+      avatar: "/avatars/ana.jpg",
     },
     {
       name: "Roberto Martins",
@@ -32,7 +32,7 @@ export const Testimonials = () => {
       content:
         "O processamento de documentos que levava dias agora é feito em minutos. Nossa equipe foca no que realmente importa: atendimento.",
       metric: "-70% tempo processamento",
-      avatar: "/placeholder.svg",
+      avatar: "/avatars/roberto.jpg",
     },
   ];
 
