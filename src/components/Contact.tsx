@@ -134,7 +134,7 @@ export const Contact = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline mt-2 inline-block"
-                      href="https://wa.me/5553991631843"
+                      href="https://wa.me/555391631843?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.%0AMeu%20nome%20%C3%A9%20%E2%80%A6"
                     >
                       +55 53 99163-1843
                     </a>
@@ -171,7 +171,7 @@ export const Contact = () => {
                 Sem compromisso.
               </p>
               <Button
-                onClick={() => window.open("https://wa.me/555391631843?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.%0AMeu%20nome%20%C3%A9%20%E2%80%A6", "_blank")}
+                onClick={() => window.open("https://wa.me/555391631843?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20tenho%20interesse%20em%20uma%20demonstra%C3%A7%C3%A3o.%0AMeu%20nome%20%C3%A9%20%E2%80%A6", "_blank")}
                 variant="outline"
                 className="w-full border-primary/50 hover:bg-primary/10"
               >
