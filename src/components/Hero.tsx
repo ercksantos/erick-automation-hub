@@ -130,7 +130,7 @@ export const Hero = () => {
               <img
                 alt="Dashboard Preview"
                 className="relative rounded-2xl border border-primary/20 shadow-2xl w-full"
-                src="/lovable-uploads/dfad29e8-e6a3-4057-acad-0969195bc19a.png"
+                src="/imagem-principal.png"
               />
             </div>
           </motion.div>

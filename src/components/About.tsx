@@ -35,7 +35,7 @@ export const About = () => {
         }} className="relative">
             <div className="relative w-full aspect-square max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-full blur-3xl" />
-              <img alt="Erick - Especialista em Automação" className="relative rounded-full border-4 border-primary/20 shadow-2xl w-full h-full object-cover" src="/lovable-uploads/16666b9d-5879-4d7c-ad2f-8e0fe3a652bb.png" />
+              <img alt="Erick - Especialista em Automação" className="relative rounded-full border-4 border-primary/20 shadow-2xl w-full h-full object-cover" src="/imagem-sobre-mim.png" />
             </div>
           </motion.div>
 
