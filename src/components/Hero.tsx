@@ -10,7 +10,7 @@ export const Hero = () => {
       });
     }
   };
-  return <section className="relative min-h-screen flex items-center overflow-hidden">
+  <section className="relative min-h-screen flex items-center overflow-hidden pt-28 md:pt-32">
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--hero-gradient-from))] to-[hsl(var(--hero-gradient-to))]">
         <div className="absolute inset-0 opacity-20">
