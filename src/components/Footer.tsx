@@ -66,10 +66,11 @@ export const Footer = () => {
                 <Github className="w-5 h-5 text-primary" />
               </a>
               <a
-                href="mailto:contato@erick.ai"
-                className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                href="mailto:erickai.contato@gmail.com"
+                className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
               >
-                <Mail className="w-5 h-5 text-primary" />
+                <Mail className="w-5 h-5" />
+                <span className="text-sm">erickai.contato@gmail.com</span>
               </a>
             </div>
           </div>
