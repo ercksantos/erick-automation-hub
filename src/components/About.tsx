@@ -62,9 +62,7 @@ export const About = () => {
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
-              Há mais de 5 anos transformando processos manuais em fluxos inteligentes.
-              Minha missão é ajudar empresas a escalarem sem perder qualidade no
-              atendimento, usando automação estratégica e IA.
+              Há mais de 2 anos transformando processos manuais em fluxos inteligentes. Minha missão é ajudar empresas a escalarem sem perder qualidade no atendimento, usando automação estratégica e IA.
             </p>
 
             <div>
