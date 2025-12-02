@@ -11,7 +11,7 @@ type Project = {
   description: string;
   tags: string[];
   thumbnail: string;
-  video?: string; // suporte a vídeo
+  video?: string[];
   features: string[];
   technologies: string[];
 };
@@ -22,6 +22,18 @@ export const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeFilter, setActiveFilter] = useState("Todos");
 
+  const [videoIndex, setVideoIndex] = useState(0);
+
+  const nextVideo = () => {
+    if (!selectedProject?.video) return;
+    setVideoIndex((prev) => (prev + 1) % selectedProject.video.length);
+  };
+
+  const prevVideo = () => {
+    if (!selectedProject?.video) return;
+    setVideoIndex((prev) => (prev - 1 + selectedProject.video.length) % selectedProject.video.length);
+  };
+
   const projects: Project[] = [
     {
       id: 1,
@@ -29,46 +41,51 @@ export const Projects = () => {
       description: "Sistema completo de atendimento automatizado para concessionária",
       tags: ["n8n", "CRM", "WhatsApp"],
       thumbnail: "/crm-carros.png",
-      video: "/crm-carros-video.mp4", // <<< aqui está o vídeo
+      video: ["/crm-carros-video.mp4", "/conversa-carros.mp4"],
       features: [
         "Respostas automáticas via WhatsApp",
         "Qualificação de leads com IA",
         "Integração com CRM existente",
         "Gestão de veículos interativa",
         "Dashboard de métricas em tempo real",
+        "IA treinada para convencer o cliente",
         "Follow-up inteligente baseado em comportamento",
       ],
       technologies: ["n8n", "OpenAI", "WhatsApp API", "PostgreSQL"],
     },
+
     {
       id: 2,
       title: "Agendamento Inteligente",
       description: "Sistema de lembretes e gestão de consultas para clínica",
       tags: ["n8n", "Consultório", "IA"],
       thumbnail: "/secretaria.png",
-      video: "/video-secretaria.mp4",
+      video: ["/video-secretaria.mp4"],
       features: [
         "Lembretes automáticos por WhatsApp",
         "Confirmação de presença via chatbot",
         "Reagendamento inteligente",
+        "Lembrete diário para o profissional",
         "Redução de 60% nas faltas",
         "Integração com Google Calendar",
       ],
       technologies: ["n8n", "Google Calendar API", "Twilio", "Node.js"],
     },
+
     {
       id: 3,
       title: "CRM + Geração de Documentos Fiscais",
       description: "Automação completa para escritório contábil",
       tags: ["n8n", "Contábil", "APIs"],
       thumbnail: "/crm-contabil.png",
-      video: "/crm-contabil-video.mp4",
+      video: ["/crm-contabil-video.mp4"],
       features: [
         "Extração automática de dados de NF-e",
         "Classificação com IA",
         "Geração de relatórios mensais",
         "Integração com sistema contábil",
         "Alertas de vencimentos",
+        "Atendimento humanizado",
       ],
       technologies: ["n8n", "Python", "OCR", "API Gov.br"],
     },
@@ -83,14 +100,13 @@ export const Projects = () => {
 
   const scrollToContact = () => {
     const element = document.getElementById("contato");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section id="projetos" ref={ref} className="py-24">
       <div className="container mx-auto px-4">
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -105,7 +121,7 @@ export const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Filters */}
+        {/* FILTERS */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -128,7 +144,7 @@ export const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* PROJECTS GRID */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <motion.div
@@ -136,7 +152,10 @@ export const Projects = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              onClick={() => setSelectedProject(project)}
+              onClick={() => {
+                setSelectedProject(project);
+                setVideoIndex(0);
+              }}
               className="group cursor-pointer"
             >
               <div className="relative bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300">
@@ -178,7 +197,7 @@ export const Projects = () => {
         </div>
       </div>
 
-      {/* Project Modal */}
+      {/* MODAL */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           {selectedProject && (
@@ -191,13 +210,39 @@ export const Projects = () => {
 
               <div className="space-y-6">
 
-                {/* Media: vídeo ou imagem */}
-                {selectedProject.video ? (
-                  <video
-                    src={selectedProject.video}
-                    controls
-                    className="w-full rounded-lg"
-                  />
+                {/* CARROSSEL DE VÍDEOS */}
+                {selectedProject.video && selectedProject.video.length > 0 ? (
+                  <div className="relative">
+                    <video
+                      src={selectedProject.video[videoIndex]}
+                      controls
+                      autoPlay
+                      className="w-full rounded-lg"
+                    />
+
+                    {/* CONTROLES */}
+                    {selectedProject.video.length > 1 && (
+                      <div className="flex justify-between items-center mt-3">
+                        <button
+                          onClick={prevVideo}
+                          className="px-4 py-2 rounded-lg border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                        >
+                          ◀
+                        </button>
+
+                        <span className="text-gray-600 text-sm">
+                          {videoIndex + 1} / {selectedProject.video.length}
+                        </span>
+
+                        <button
+                          onClick={nextVideo}
+                          className="px-4 py-2 rounded-lg border border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                        >
+                          ▶
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <img
                     src={selectedProject.thumbnail}
@@ -208,6 +253,7 @@ export const Projects = () => {
 
                 <p className="text-muted-foreground">{selectedProject.description}</p>
 
+                {/* FEATURES */}
                 <div>
                   <h4 className="font-semibold mb-3">Funcionalidades</h4>
                   <ul className="space-y-2">
@@ -220,6 +266,7 @@ export const Projects = () => {
                   </ul>
                 </div>
 
+                {/* TECHNOLOGIES */}
                 <div>
                   <h4 className="font-semibold mb-3">Tecnologias</h4>
                   <div className="flex flex-wrap gap-2">
@@ -241,6 +288,7 @@ export const Projects = () => {
                 >
                   Quero esse resultado
                 </Button>
+
               </div>
             </>
           )}
