@@ -171,7 +171,7 @@ export const Contact = () => {
                 Sem compromisso.
               </p>
               <Button
-                onClick={() => window.open("https://wa.me/5511999999999", "_blank")}
+                onClick={() => window.open("https://wa.me/555391631843?text=Ol%C3%A1!%20Vi%20seu%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.%0AMeu%20nome%20%C3%A9%20%E2%80%A6", "_blank")}
                 variant="outline"
                 className="w-full border-primary/50 hover:bg-primary/10"
               >
