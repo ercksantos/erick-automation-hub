@@ -127,11 +127,15 @@ export const Hero = () => {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-2xl blur-2xl" />
-              <img
-                alt="Dashboard Preview"
+              <video 
+                src="/principal.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="relative rounded-2xl border border-primary/20 shadow-2xl w-full"
-                src="/imagem-principal.png"
-              />
+              ></video>
+
             </div>
           </motion.div>
 
