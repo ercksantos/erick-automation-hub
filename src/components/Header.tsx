@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,6 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,9 +20,14 @@ export const Header = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (isHomePage) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        setIsMobileMenuOpen(false);
+      }
+    } else {
+      navigate(`/#${id}`);
       setIsMobileMenuOpen(false);
     }
   };
@@ -72,8 +81,16 @@ export const Header = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="hidden md:block"
+            className="hidden md:flex items-center gap-3"
           >
+            <Link to="/teste-gratis">
+              <Button
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10 font-semibold"
+              >
+                Testar Grátis
+              </Button>
+            </Link>
             <Button
               onClick={() => scrollToSection("contato")}
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-primary"
@@ -111,6 +128,14 @@ export const Header = () => {
                   {item.label}
                 </button>
               ))}
+              <Link to="/teste-gratis" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary/10 w-full"
+                >
+                  Testar Grátis
+                </Button>
+              </Link>
               <Button
                 onClick={() => scrollToSection("contato")}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
