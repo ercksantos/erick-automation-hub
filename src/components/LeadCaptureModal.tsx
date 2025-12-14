@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Loader2 } from "lucide-react"; // Importei Loader2 para estado de carregamento
+import { useToast } from "@/hooks/use-toast";
 
 interface LeadCaptureModalProps {
   open: boolean;
@@ -14,10 +15,8 @@ interface LeadCaptureModalProps {
 }
 
 const formatPhone = (value: string): string => {
-  // Remove tudo que não é número
   const numbers = value.replace(/\D/g, "");
-  
-  // Aplica a máscara (XX) XXXXX-XXXX
+
   if (numbers.length <= 2) {
     return numbers.length ? `(${numbers}` : "";
   }
@@ -27,15 +26,48 @@ const formatPhone = (value: string): string => {
   return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
 };
 
-export const LeadCaptureModal = ({ 
-  open, 
-  onOpenChange, 
-  onSubmit, 
-  automationName 
+const STORAGE_KEY = "erickai_user_lead"; // Chave para salvar no navegador
+
+export const LeadCaptureModal = ({
+  open,
+  onOpenChange,
+  onSubmit,
+  automationName
 }: LeadCaptureModalProps) => {
+  const { toast } = useToast();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAutoLogging, setIsAutoLogging] = useState(false); // Novo estado para controle de login automático
+
+  // Verifica se já existe usuário salvo ao abrir o modal
+  useEffect(() => {
+    if (open) {
+      const savedData = localStorage.getItem(STORAGE_KEY);
+      if (savedData) {
+        try {
+          const user = JSON.parse(savedData);
+          if (user.name && user.email && user.phone) {
+            setIsAutoLogging(true);
+
+            // Pequeno delay para UX (usuário ver que foi reconhecido)
+            setTimeout(() => {
+              toast({
+                title: `Bem-vindo(a) de volta, ${user.name}!`,
+                description: `Iniciando teste da automação: ${automationName}`,
+              });
+              onSubmit({ email: user.email, phone: user.phone });
+              onOpenChange(false); // Fecha o modal
+              setIsAutoLogging(false);
+            }, 1000);
+          }
+        } catch (e) {
+          console.error("Erro ao ler dados salvos", e);
+        }
+      }
+    }
+  }, [open, automationName, onSubmit, onOpenChange, toast]);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(formatPhone(e.target.value));
@@ -44,15 +76,63 @@ export const LeadCaptureModal = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simula um pequeno delay para UX
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    onSubmit({ email, phone });
-    setIsSubmitting(false);
+
+    const webhookData = {
+      name: name,
+      company: "Lead via Teste Grátis",
+      whatsapp: phone,
+      email: email,
+      message: `Lead capturado ao iniciar teste da automação: ${automationName}`
+    };
+
+    try {
+      const res = await fetch("https://bleatinglanternfish-n8n.cloudfy.cloud/webhook/contact-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(webhookData),
+      });
+
+      if (!res.ok) throw new Error("Erro ao salvar lead");
+
+      // SALVAR NO LOCALSTORAGE AQUI
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email, phone }));
+
+      toast({
+        title: "Acesso liberado!",
+        description: "Iniciando seu teste agora...",
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      onSubmit({ email, phone });
+      onOpenChange(false); // Garante que fecha
+
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Erro de conexão",
+        description: "Não foi possível registrar seu acesso. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const isValid = email.includes("@") && phone.replace(/\D/g, "").length >= 10;
+  const isValid = name.length > 2 && email.includes("@") && phone.replace(/\D/g, "").length >= 10;
+
+  // Se estiver fazendo login automático, mostra apenas um loader simples
+  if (isAutoLogging && open) {
+    return (
+      <Dialog open={open} onOpenChange={() => { }}>
+        <DialogContent className="sm:max-w-md bg-card border-border flex flex-col items-center justify-center py-12">
+          <Loader2 className="w-10 h-10 text-primary animate-spin mb-4" />
+          <h3 className="text-xl font-display font-semibold">Identificando você...</h3>
+          <p className="text-muted-foreground text-sm mt-2">Redirecionando para o teste.</p>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -67,7 +147,26 @@ export const LeadCaptureModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-5 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 }}
+            className="space-y-2"
+          >
+            <Label htmlFor="name">Nome</Label>
+            <Input
+              id="name"
+              type="text"
+              placeholder="Seu nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="bg-background border-border"
+            />
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,6 +208,7 @@ export const LeadCaptureModal = ({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            className="pt-2"
           >
             <Button
               type="submit"
