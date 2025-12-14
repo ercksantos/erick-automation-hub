@@ -54,7 +54,7 @@ const TesteGratis = () => {
             className="text-center mb-12"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Teste grátis minha automação
+              Teste agora e veja o que <span className="text-gradient">seu cliente vai sentir</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Converse com a IA exatamente como seus clientes conversariam.
@@ -67,6 +67,16 @@ const TesteGratis = () => {
             selectedAutomation={selectedAutomation}
             onSelect={setSelectedAutomation}
           />
+
+          {/* Legend */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-center text-muted-foreground text-sm mt-6"
+          >
+            ⚡ Simulação real em tempo real
+          </motion.p>
 
           {/* Chat Component */}
           {selectedAutomation && (

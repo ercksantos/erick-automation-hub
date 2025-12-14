@@ -53,8 +53,8 @@ export const Hero = () => {
               transition={{ duration: 0.8 }}
               className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight"
             >
-              Automação com IA que{" "}
-              <span className="text-gradient">impulsiona atendimento</span>
+              Pare de perder clientes no WhatsApp e{" "}
+              <span className="text-gradient">venda 24h por dia</span>
             </motion.h1>
 
             <motion.p
@@ -63,8 +63,8 @@ export const Hero = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
             >
-              Fluxos inteligentes com n8n + IA para reduzir tarefas manuais,
-              aumentar conversão e escalar seu atendimento sem aumentar equipe.
+              Sua empresa atendendo, agendando e vendendo no piloto automático. 
+              Implementação relâmpago para você lucrar ainda em 2025.
             </motion.p>
 
             {/* CTA BUTTONS */}
@@ -77,20 +77,20 @@ export const Hero = () => {
               <Button
                 size="lg"
                 onClick={() => scrollToSection("contato")}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg group shadow-xl"
+                className="bg-[hsl(var(--cta))] hover:bg-[hsl(var(--cta))]/90 text-[hsl(var(--cta-foreground))] font-bold text-lg group shadow-xl shadow-[hsl(var(--cta-glow))]/30 hover:shadow-[hsl(var(--cta-glow))]/50 transition-all duration-300"
               >
-                Solicitar Demo
+                Quero Vender Mais Agora
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
 
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => scrollToSection("projetos")}
+                onClick={() => scrollToSection("demos")}
                 className="border-primary/40 text-primary hover:bg-primary/10 text-lg"
               >
                 <Play className="mr-2 transition-transform group-hover:scale-110" />
-                Ver Projetos
+                Ver a IA em ação
               </Button>
             </motion.div>
 

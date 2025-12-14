@@ -45,6 +45,15 @@ All colors MUST be HSL.
     --success: 160 84% 39%;
     --success-foreground: 210 20% 98%;
 
+    /* CTA Colors - High contrast for conversions */
+    --cta: 145 100% 50%;
+    --cta-foreground: 210 24% 8%;
+    --cta-glow: 145 100% 45%;
+
+    /* Urgency bar */
+    --urgency: 30 100% 50%;
+    --urgency-foreground: 0 0% 100%;
+
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);

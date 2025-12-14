@@ -7,10 +7,12 @@ import { Process } from "@/components/Process";
 import { Testimonials } from "@/components/Testimonials";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { UrgencyBar } from "@/components/UrgencyBar";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <UrgencyBar />
       <Header />
       <Hero />
       <About />
