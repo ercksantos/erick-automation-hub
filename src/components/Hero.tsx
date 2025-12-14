@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -86,7 +89,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => scrollToSection("demos")}
+                onClick={() => navigate("/teste-gratis")}
                 className="border-primary/40 text-primary hover:bg-primary/10 text-lg"
               >
                 <Play className="mr-2 transition-transform group-hover:scale-110" />

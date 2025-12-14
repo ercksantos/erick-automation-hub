@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AutomationSelector } from "@/components/AutomationSelector";
 import { ChatTest } from "@/components/ChatTest";
+import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { motion } from "framer-motion";
 
 export interface Automation {
@@ -39,6 +40,28 @@ const automations: Automation[] = [
 
 const TesteGratis = () => {
   const [selectedAutomation, setSelectedAutomation] = useState<Automation | null>(null);
+  const [pendingAutomation, setPendingAutomation] = useState<Automation | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  const handleAutomationSelect = (automation: Automation) => {
+    if (isUnlocked && selectedAutomation?.id === automation.id) {
+      // Já desbloqueado para esta automação
+      return;
+    }
+    
+    // Se trocar de automação ou não estiver desbloqueado, abre o modal
+    setPendingAutomation(automation);
+    setIsModalOpen(true);
+  };
+
+  const handleLeadSubmit = (data: { email: string; phone: string }) => {
+    console.log("Lead capturado:", data, "Automação:", pendingAutomation?.name);
+    setSelectedAutomation(pendingAutomation);
+    setIsUnlocked(true);
+    setIsModalOpen(false);
+    setPendingAutomation(null);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -65,7 +88,15 @@ const TesteGratis = () => {
           <AutomationSelector
             automations={automations}
             selectedAutomation={selectedAutomation}
-            onSelect={setSelectedAutomation}
+            onSelect={handleAutomationSelect}
+          />
+
+          {/* Lead Capture Modal */}
+          <LeadCaptureModal
+            open={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            onSubmit={handleLeadSubmit}
+            automationName={pendingAutomation?.name || ""}
           />
 
           {/* Legend */}
@@ -79,7 +110,7 @@ const TesteGratis = () => {
           </motion.p>
 
           {/* Chat Component */}
-          {selectedAutomation && (
+          {selectedAutomation && isUnlocked && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

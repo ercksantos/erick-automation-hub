@@ -54,7 +54,7 @@ export const AutomationSelector = ({
                   className={`w-full ${isSelected ? "bg-[hsl(var(--cta))] text-[hsl(var(--cta-foreground))] hover:bg-[hsl(var(--cta))]/90" : ""}`}
                   variant={isSelected ? "default" : "outline"}
                 >
-                  {isSelected ? "Selecionado" : "Testar no WhatsApp"}
+                  {isSelected ? "Selecionado" : "Teste Grátis"}
                 </Button>
               </CardContent>
             </Card>
