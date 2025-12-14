@@ -44,11 +44,13 @@ export const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      // ALTERAÇÃO AQUI:
+      // Mudei de 'top-10' para 'top-7 md:top-8'.
+      // Isso faz o menu "colar" logo abaixo da UrgencyBar (que tem +- 30px de altura).
+      className={`fixed top-7 md:top-8 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "bg-background/70 backdrop-blur-md border-b border-border shadow-lg"
           : "bg-background/10 backdrop-blur-sm"
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
