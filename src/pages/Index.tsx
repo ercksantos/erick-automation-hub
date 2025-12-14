@@ -11,7 +11,7 @@ import { UrgencyBar } from "@/components/UrgencyBar";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-10">
       <UrgencyBar />
       <Header />
       <Hero />
