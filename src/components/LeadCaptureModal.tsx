@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
-import { MessageCircle, Loader2 } from "lucide-react"; // Importei Loader2 para estado de carregamento
+import { MessageCircle, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface LeadCaptureModalProps {
@@ -26,7 +26,7 @@ const formatPhone = (value: string): string => {
   return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
 };
 
-const STORAGE_KEY = "erickai_user_lead"; // Chave para salvar no navegador
+const STORAGE_KEY = "erickai_user_lead";
 
 export const LeadCaptureModal = ({
   open,
@@ -39,9 +39,8 @@ export const LeadCaptureModal = ({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isAutoLogging, setIsAutoLogging] = useState(false); // Novo estado para controle de login automático
+  const [isAutoLogging, setIsAutoLogging] = useState(false);
 
-  // Verifica se já existe usuário salvo ao abrir o modal
   useEffect(() => {
     if (open) {
       const savedData = localStorage.getItem(STORAGE_KEY);
@@ -50,15 +49,13 @@ export const LeadCaptureModal = ({
           const user = JSON.parse(savedData);
           if (user.name && user.email && user.phone) {
             setIsAutoLogging(true);
-
-            // Pequeno delay para UX (usuário ver que foi reconhecido)
             setTimeout(() => {
               toast({
                 title: `Bem-vindo(a) de volta, ${user.name}!`,
                 description: `Iniciando teste da automação: ${automationName}`,
               });
               onSubmit({ email: user.email, phone: user.phone });
-              onOpenChange(false); // Fecha o modal
+              onOpenChange(false);
               setIsAutoLogging(false);
             }, 1000);
           }
@@ -94,7 +91,6 @@ export const LeadCaptureModal = ({
 
       if (!res.ok) throw new Error("Erro ao salvar lead");
 
-      // SALVAR NO LOCALSTORAGE AQUI
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email, phone }));
 
       toast({
@@ -105,7 +101,7 @@ export const LeadCaptureModal = ({
       await new Promise(resolve => setTimeout(resolve, 500));
 
       onSubmit({ email, phone });
-      onOpenChange(false); // Garante que fecha
+      onOpenChange(false);
 
     } catch (error) {
       console.error(error);
@@ -121,7 +117,6 @@ export const LeadCaptureModal = ({
 
   const isValid = name.length > 2 && email.includes("@") && phone.replace(/\D/g, "").length >= 10;
 
-  // Se estiver fazendo login automático, mostra apenas um loader simples
   if (isAutoLogging && open) {
     return (
       <Dialog open={open} onOpenChange={() => { }}>
@@ -136,7 +131,7 @@ export const LeadCaptureModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-card border-border">
+      <DialogContent className="sm:max-w-md bg-card border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-display flex items-center gap-2">
             <MessageCircle className="w-6 h-6 text-primary" />
@@ -213,15 +208,28 @@ export const LeadCaptureModal = ({
             <Button
               type="submit"
               disabled={!isValid || isSubmitting}
-              className="w-full bg-[hsl(var(--cta))] hover:bg-[hsl(var(--cta))]/90 text-[hsl(var(--cta-foreground))] font-bold shadow-lg shadow-[hsl(var(--cta-glow))]/30"
+              className="w-full bg-[hsl(var(--cta))] hover:bg-[hsl(var(--cta))]/90 text-[hsl(var(--cta-foreground))] font-bold shadow-lg shadow-[hsl(var(--cta-glow))]/30 h-11"
             >
               {isSubmitting ? "Liberando acesso..." : "Liberar Chat de Teste"}
             </Button>
           </motion.div>
 
-          <p className="text-xs text-muted-foreground text-center">
+          <p className="text-xs text-muted-foreground text-center pb-2">
             Seus dados estão seguros. Não enviamos spam.
           </p>
+
+          {/* NOVO: Botão Fechar explícito para Mobile */}
+          <div className="md:hidden border-t border-border/50 pt-4">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => onOpenChange(false)}
+              className="w-full text-muted-foreground hover:text-foreground h-10"
+            >
+              Fechar
+            </Button>
+          </div>
+
         </form>
       </DialogContent>
     </Dialog>
