@@ -51,10 +51,10 @@ export const AutomationSelector = ({
               
               <CardContent>
                 <Button 
-                  className={`w-full ${isSelected ? "bg-primary" : ""}`}
+                  className={`w-full ${isSelected ? "bg-[hsl(var(--cta))] text-[hsl(var(--cta-foreground))] hover:bg-[hsl(var(--cta))]/90" : ""}`}
                   variant={isSelected ? "default" : "outline"}
                 >
-                  {isSelected ? "Selecionado" : "Testar agora"}
+                  {isSelected ? "Selecionado" : "Testar no WhatsApp"}
                 </Button>
               </CardContent>
             </Card>

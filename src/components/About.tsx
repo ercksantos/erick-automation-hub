@@ -9,7 +9,7 @@ export const About = () => {
     once: true,
     margin: "-100px"
   });
-  const technologies = ["n8n", "IA Generativa", "APIs", "CRM", "Fluxos Complexos", "WhatsApp", "OpenAI", "Automação"];
+  const benefits = ["Atendimento 24/7", "Mais Vendas", "Menos Trabalho Manual", "Respostas Instantâneas", "Agendamento Automático", "Zero Clientes Perdidos"];
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -52,25 +52,24 @@ export const About = () => {
         }} className="space-y-6">
             <div>
               <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                Sobre <span className="text-gradient">Mim</span>
+                Por que sua empresa <span className="text-gradient">precisa disso?</span>
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Sou Erick, desenvolvedor full-stack e especialista em automações com IA.
-                Eu crio sistemas que resolvem gargalos operacionais e entregam métricas
-                reais.
+                Sou Erick, especialista em transformar atendimento lento em máquina de vendas.
+                Não entrego apenas código, entrego um sistema que trabalha enquanto você dorme.
               </p>
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
-              Há mais de 2 anos transformando processos manuais em fluxos inteligentes. Minha missão é ajudar empresas a escalarem sem perder qualidade no atendimento, usando automação estratégica e IA.
+              Com mais de 30 projetos entregues, minha missão é colocar dinheiro no seu bolso através da automação. Enquanto sua concorrência demora horas para responder, seus clientes são atendidos em segundos.
             </p>
 
             <div>
               <h3 className="text-lg font-semibold mb-3 text-foreground">
-                Tecnologias & Especialidades
+                O que você ganha
               </h3>
               <div className="flex flex-wrap gap-2">
-                {technologies.map((tech, index) => <motion.div key={tech} initial={{
+                {benefits.map((benefit, index) => <motion.div key={benefit} initial={{
                 opacity: 0,
                 scale: 0.8
               }} animate={isInView ? {
@@ -79,8 +78,8 @@ export const About = () => {
               } : {}} transition={{
                 delay: 0.4 + index * 0.1
               }}>
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors px-4 py-1.5">
-                      {tech}
+                    <Badge variant="secondary" className="bg-[hsl(var(--cta))]/10 text-[hsl(var(--cta))] border-[hsl(var(--cta))]/20 hover:bg-[hsl(var(--cta))]/20 transition-colors px-4 py-1.5">
+                      {benefit}
                     </Badge>
                   </motion.div>)}
               </div>
