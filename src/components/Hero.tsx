@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
   const navigate = useNavigate();
-  
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -66,8 +66,8 @@ export const Hero = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
             >
-              Sua empresa atendendo, agendando e vendendo no piloto automático. 
-              Implementação relâmpago para você lucrar ainda em 2025.
+              Sua empresa atendendo, agendando e vendendo no piloto automático.
+              Comece 2026 faturando mais com automação inteligente.
             </motion.p>
 
             {/* CTA BUTTONS */}
@@ -130,7 +130,7 @@ export const Hero = () => {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-2xl blur-2xl" />
-              <video 
+              <video
                 src="/principal.mp4"
                 autoPlay
                 loop

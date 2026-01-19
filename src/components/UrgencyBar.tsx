@@ -13,7 +13,7 @@ export const UrgencyBar = () => {
     >
       <div className="flex items-center justify-center gap-2">
         <Flame className="w-3 h-3 md:w-4 md:h-4 animate-pulse text-white fill-white/20" />
-        <span className="truncate">Últimas 2 vagas de Dezembro: Implementação Imediata!</span>
+        <span className="truncate">🚀 Janeiro 2026: Comece o ano vendendo 24h no automático!</span>
         <Flame className="w-3 h-3 md:w-4 md:h-4 animate-pulse text-white fill-white/20" />
       </div>
     </motion.div>
