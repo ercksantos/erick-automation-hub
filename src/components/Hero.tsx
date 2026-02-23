@@ -89,7 +89,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => navigate("/teste-gratis")}
+                onClick={() => scrollToSection("projetos")}
                 className="border-primary/40 text-primary hover:bg-primary/10 text-lg"
               >
                 <Play className="mr-2 transition-transform group-hover:scale-110" />
