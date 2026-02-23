@@ -44,12 +44,9 @@ export const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      // ALTERAÇÃO AQUI:
-      // Mudei de 'top-10' para 'top-7 md:top-8'.
-      // Isso faz o menu "colar" logo abaixo da UrgencyBar (que tem +- 30px de altura).
-      className={`fixed top-7 md:top-8 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-background/70 backdrop-blur-md border-b border-border shadow-lg"
-          : "bg-background/10 backdrop-blur-sm"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-background/70 backdrop-blur-md border-b border-border shadow-lg"
+        : "bg-background/10 backdrop-blur-sm"
         }`}
     >
       <div className="container mx-auto px-4">
@@ -87,14 +84,6 @@ export const Header = () => {
             transition={{ delay: 0.4 }}
             className="hidden md:flex items-center gap-3"
           >
-            <Link to="/teste-gratis">
-              <Button
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary/10 font-semibold"
-              >
-                Testar Grátis
-              </Button>
-            </Link>
             <Button
               onClick={() => scrollToSection("contato")}
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-primary"
@@ -132,14 +121,6 @@ export const Header = () => {
                   {item.label}
                 </button>
               ))}
-              <Link to="/teste-gratis" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button
-                  variant="outline"
-                  className="border-primary text-primary hover:bg-primary/10 w-full"
-                >
-                  Testar Grátis
-                </Button>
-              </Link>
               <Button
                 onClick={() => scrollToSection("contato")}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
