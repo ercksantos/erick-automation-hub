@@ -87,6 +87,22 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* Dados da empresa */}
+        <div className="text-center mt-6 space-y-1 text-xs text-muted-foreground">
+          <p>ERICK PEREIRA DOS SANTOS LTDA · CNPJ 69.677.846/0001-67</p>
+          <p>
+            R. Visconde do Rio Branco, 1488, Conj. 909, Centro, Curitiba - PR, 80420-210
+          </p>
+          <p>
+            <a
+              href="mailto:erickai.contato@gmail.com"
+              className="hover:text-primary transition-colors"
+            >
+              erickai.contato@gmail.com
+            </a>
+          </p>
+        </div>
+
         <div className="text-center mt-6">
           <p className="text-xs text-muted-foreground">
             Construído com n8n & IA por Erick
