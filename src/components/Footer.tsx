@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -78,12 +79,12 @@ export const Footer = () => {
         <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} Erick.AI. Todos os direitos reservados.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition-colors">
+            <Link to="/privacidade" className="hover:text-primary transition-colors">
               Política de Privacidade
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
+            </Link>
+            <Link to="/termos" className="hover:text-primary transition-colors">
               Termos de Uso
-            </a>
+            </Link>
           </div>
         </div>
 
