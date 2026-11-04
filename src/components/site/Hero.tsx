@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import { HERO_CONVERSAS, SITE, waLink } from "@/content/site";
+import { HERO_CONVERSAS, PREMIO, waLink } from "@/content/site";
 import { MEDIA, gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
 import { scrollToId } from "@/lib/scroll";
-import { CheckIcon, WhatsIcon } from "./NodeMark";
+import { CheckIcon, TrophyIcon, WhatsIcon } from "./NodeMark";
 
 // O único momento "de cinema" da página: as mensagens da noite chegam soltas,
 // sem resposta, e com a rolagem se encaixam no painel; o fio do CRM leva cada
@@ -135,7 +135,9 @@ export const Hero = () => {
         intro
           .from(lines, { yPercent: 108, duration: 1.1, ease: "expo.out", stagger: 0.09 })
           .fromTo(title, { "--wdth": 70 }, { "--wdth": 125, duration: 1.7, ease: "expo.out" }, 0.05)
-          .from(".hero__swap, .hero__ctas, .hero__by", { autoAlpha: 0, y: 14, duration: 0.8, ease: "power3.out", stagger: 0.08 }, 0.35)
+          .from(".hero__swap, .hero__ctas, .award-chip", { autoAlpha: 0, y: 14, duration: 0.8, ease: "power3.out", stagger: 0.08 }, 0.35)
+          // um brilho atravessa o selo do prêmio uma vez, depois que a entrada assenta
+          .add(() => q(".award-chip")[0]?.classList.add("is-shine"), 1.5)
           .from(tileIns, { autoAlpha: 0, scale: 0.4, duration: 0.8, ease: "back.out(1.7)", stagger: { each: 0.08, from: "random" } }, 0.3)
           .from(".noise > *", { autoAlpha: 0, scale: 0.75, duration: 0.7, ease: "back.out(1.6)", stagger: 0.1 }, 0.6);
         const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -189,7 +191,19 @@ export const Hero = () => {
               Ver um agente por dentro
             </a>
           </div>
-          <p className="hero__by">{SITE.pessoa}, desenvolvedor</p>
+          <a
+            className="award-chip"
+            href="#premio"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId("premio");
+            }}
+          >
+            <TrophyIcon />
+            <span>
+              <b>1º lugar</b> na {PREMIO.evento}
+            </span>
+          </a>
         </div>
 
         <div className="hero__stage" aria-hidden="true">

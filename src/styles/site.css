@@ -320,7 +320,7 @@ body.site {
 .no-motion .hero__before { display: none; }
 
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-.hero__by { margin: 28px 0 0; font-size: 15px; color: var(--muted); }
+
 
 .hero__hint {
   position: absolute; left: 50%; bottom: 22px;
@@ -886,6 +886,104 @@ body.site {
   .router { overflow: visible; }
   .crm__board { overflow-y: visible; }
 }
+
+/* ==========================================================================
+   PRÊMIO
+   ========================================================================== */
+
+.award__grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(32px, 5vw, 96px); align-items: start;
+}
+.plaque {
+  position: relative; overflow: hidden;
+  margin: 0;
+  display: grid; justify-items: center; gap: 6px;
+  padding: clamp(36px, 4vw, 60px) 28px clamp(32px, 3.6vw, 52px);
+  border-radius: 26px;
+  border: 1px solid rgba(255, 181, 71, 0.38);
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255, 181, 71, 0.16), transparent 62%),
+    linear-gradient(165deg, #1f2733, #141920);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+.plaque::before {
+  content: ""; position: absolute; inset: 12px;
+  border: 1px solid rgba(255, 181, 71, 0.16); border-radius: 18px;
+  pointer-events: none;
+}
+.plaque__sheen {
+  position: absolute; top: -20%; bottom: -20%; left: 0; width: 36%;
+  background: linear-gradient(100deg, transparent, rgba(255, 236, 200, 0.16) 45%, rgba(255, 236, 200, 0.05) 60%, transparent);
+  transform: translateX(-260%);
+  pointer-events: none;
+}
+.trophy { width: clamp(150px, 15vw, 210px); height: auto; overflow: visible; }
+.trophy [data-draw] { fill: none; stroke: var(--amber); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.trophy__star, .spark { fill: var(--amber); }
+.plaque__text { display: grid; gap: 4px; }
+.plaque__title {
+  margin-top: 14px;
+  font-size: clamp(40px, 4.4vw, 64px); font-weight: 840; font-stretch: 122%;
+  letter-spacing: -0.03em; line-height: 1; color: var(--amber);
+}
+.plaque__place { font-size: clamp(19px, 1.6vw, 23px); font-weight: 720; }
+.plaque__event { font-size: 15px; color: var(--muted); text-wrap: balance; }
+
+.award__lead { margin: 0 0 22px; font-size: clamp(18px, 1.4vw, 21px); line-height: 1.5; }
+.award__built { margin-bottom: 30px; }
+
+.score {
+  padding: clamp(20px, 2.2vw, 28px);
+  border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--line);
+}
+.score__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 20px; }
+.score__avg {
+  font-size: clamp(44px, 4.6vw, 64px); font-weight: 840; font-stretch: 115%;
+  letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.score__avg small { margin-left: 8px; font-size: 0.4em; font-weight: 650; letter-spacing: 0; color: var(--muted); }
+.score__head > span { font-size: 15px; color: var(--muted); }
+.score__list { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.score__row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; font-size: 15.5px; font-weight: 650; }
+.score__row small { margin-left: 8px; font-size: 13px; font-weight: 550; color: var(--muted); }
+.score__row b { font-variant-numeric: tabular-nums; }
+.score__bar { display: block; height: 6px; border-radius: 6px; background: var(--line-soft); overflow: hidden; }
+.score__bar span { display: block; height: 100%; border-radius: 6px; background: var(--amber); transform-origin: left; }
+.score__note { margin: 18px 0 0; font-size: 13.5px; color: var(--muted); }
+.score__note a { color: var(--text); }
+
+@media (max-width: 900px) {
+  .award__grid { grid-template-columns: minmax(0, 1fr); }
+  .plaque { max-width: 460px; width: 100%; justify-self: center; }
+}
+
+/* selo do hero */
+.award-chip {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 26px;
+  padding: 8px 15px 8px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 181, 71, 0.42);
+  background: var(--amber-tint);
+  color: var(--text); text-decoration: none;
+  font-size: 15px; font-weight: 580;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+.award-chip svg { width: 20px; height: 20px; color: var(--amber); flex-shrink: 0; }
+.award-chip b { color: var(--amber); font-weight: 760; }
+.award-chip:hover { border-color: var(--amber); background: rgba(255, 181, 71, 0.2); }
+.award-chip::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 236, 200, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.award-chip.is-shine::after { animation: chip-shine 1.3s var(--ease) 1 both; }
+@keyframes chip-shine { to { transform: translateX(120%); } }
 
 /* ==========================================================================
    FRASE

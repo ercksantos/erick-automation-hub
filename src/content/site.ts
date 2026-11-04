@@ -276,3 +276,28 @@ export const SEGMENTOS = [
 ];
 
 export const FERRAMENTAS = ["n8n", "WhatsApp API", "Claude", "OpenAI", "PostgreSQL", "Supabase", "React", "TypeScript", "Node.js"];
+
+/* ---------- prêmio ---------- */
+// Liberado pelo Erick em 2026-11-04 (erickai-conteudo/marca/04-provas.md). Foi em parceria,
+// mas os agentes e as automações são dele: a frase diz exatamente isso. Sem citar o negócio
+// inscrito, sem nomes ou fotos do júri e sem o logo do DataCrazy.
+export const PREMIO = {
+  evento: "Crazy AI Talents",
+  organizador: "DataCrazy",
+  edicao: "1ª edição, agosto de 2026",
+  colocacao: "1º lugar",
+  placa: "AI Builder",
+  url: "https://aitalent.datacrazy.io/",
+  feito: [
+    "Quatro agentes no WhatsApp: atendimento, venda, pós-venda e um auditor que relê as conversas todo dia",
+    "Base de conhecimento curada e auditável, para o agente não inventar resposta",
+    "Cobrança e confirmação do pagamento direto na conversa",
+  ],
+  media: 2.9,
+  criterios: [
+    { nome: "Complexidade", peso: 20, nota: 3.0 },
+    { nome: "Prompt e base de conhecimento", peso: 15, nota: 2.83 },
+    { nome: "Criatividade", peso: 10, nota: 3.0 },
+    { nome: "Eficiência de tokens", peso: 10, nota: 2.5 },
+  ],
+};

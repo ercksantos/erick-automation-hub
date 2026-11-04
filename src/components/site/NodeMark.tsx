@@ -17,3 +17,11 @@ export const CheckIcon = ({ color = "currentColor" }: { color?: string }) => (
     <path d="M5 10.5l3.2 3L15 6.5" fill="none" stroke={color} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
+
+export const TrophyIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M7 4h10v5a5 5 0 0 1-10 0V4z" />
+    <path d="M7 6H4.5A1.5 1.5 0 0 0 3 7.5c0 2.5 2 4.5 4.6 4.8M17 6h2.5A1.5 1.5 0 0 1 21 7.5c0 2.5-2 4.5-4.6 4.8" />
+    <path d="M12 14v3M9.5 17h5v3h-5z" />
+  </svg>
+);
