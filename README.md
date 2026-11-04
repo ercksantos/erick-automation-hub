@@ -1,49 +1,49 @@
-# AI Automation Hub
+# erickai.com.br
 
-Este projeto é o hub das minhas automações com IA, incluindo landing page, captação de leads, showcases de projetos e integrações com n8n.
+Site da Erick.AI, a marca de Erick Santos: agentes de IA no WhatsApp, CRM e sistemas sob medida para pequenas e médias empresas.
 
-## 🚀 Tecnologias Utilizadas
-- **React + TypeScript**
-- **Vite**
-- **TailwindCSS**
-- **n8n**
-- **Google Sheets API (via Webhook)**
-- **Docker (opcional)**
+## Stack
 
-## 📁 Estrutura do Projeto
-```
-src/
-  components/
-  pages/
-  hooks/
-  lib/
-public/
-  favicon.ico
-  lovable-uploads/
-```
+- React 18 + TypeScript + Vite
+- GSAP (ScrollTrigger, SplitText, Flip) e Lenis para a rolagem e as animações
+- CSS próprio em `src/styles/site.css` (paleta grafite-âmbar, fontes Mona Sans e JetBrains Mono em `public/fonts`)
+- Tailwind + shadcn só no teste grátis e nos diálogos
+- Deploy na Vercel: push na `main` publica em https://erickai.com.br
 
-## 📌 Funcionalidades
-- Formulário integrado ao **n8n Webhook**
-- Formatação automática de telefone (Brasil)
-- Cadastro automático no **Google Sheets**
-- Sessão de projetos com imagens e vídeos
-- UI rápida, responsiva e moderna
+## Onde mexer
 
-## ▶️ Como Rodar Localmente
+| O quê | Onde |
+|---|---|
+| Todo o texto do site, serviços, projetos, links e WhatsApp | `src/content/site.ts` |
+| Seções da home | `src/components/site/` |
+| Visual (cores, tipografia, responsivo) | `src/styles/site.css` |
+| Rolagem suave e GSAP | `src/lib/scroll.ts`, `src/lib/motion.ts` |
+| Vídeos e capas dos projetos | `public/media/` |
+| Dados da empresa (rodapé, políticas) | `src/lib/empresa.ts` |
+
+## Rotas
+
+- `/`: home
+- `/privacidade` (com `#exclusao-de-dados`) e `/termos`: cadastradas no app da Meta, não mudar o endereço
+- `/teste-gratis`: chat com agente real. Está no ar, mas sem link no site e fora do Google (`testeGratisVisivel` em `src/content/site.ts`) enquanto não houver crédito de LLM
+
+## Formulário de contato
+
+Envia para o n8n próprio (`https://n8n.erickai.com.br/webhook/contato-site`, fluxo "Site Erick.AI · Contato"), que grava na tabela `site_contatos`.
+
+## Rodar
+
 ```bash
 npm install
-npm run dev
+npm run dev      # http://localhost:8080
+npm run build    # gera dist/
+npm run preview  # confere o build
 ```
 
-Acesse: **http://localhost:8080** ou conforme porta do Vite.
+## Vídeos
 
-## 📤 Deploy
-Compatível com:
-- Vercel
-- Netlify
-- Render
-- Docker
+Os vídeos de `public/media/` são comprimidos com ffmpeg (H.264, CRF 30, até 1280 px, 30 fps, `+faststart`):
 
-## 📞 Contato
-Criado por **Erick.AI**
-Automação com IA que transforma atendimento em resultado.
+```bash
+ffmpeg -i entrada.mp4 -vf "scale='min(1280,iw)':-2,fps=30" -c:v libx264 -preset slow -crf 30 -pix_fmt yuv420p -movflags +faststart -an public/media/saida.mp4
+```

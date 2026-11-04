@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Bar } from "@/components/site/Bar";
+import { Foot } from "@/components/site/Foot";
 
 interface LegalLayoutProps {
   title: string;
@@ -9,26 +9,27 @@ interface LegalLayoutProps {
 }
 
 export const LegalLayout = ({ title, updatedAt, children }: LegalLayoutProps) => {
-  // Ao chegar pelo link do rodapé, a página abre no topo (ou na âncora pedida)
+  // Ao chegar pelo link do rodapé (ou pelo app da Meta), a página abre no topo ou na âncora pedida
   useEffect(() => {
+    document.title = `${title} | Erick.AI`;
     const hash = window.location.hash.slice(1);
     const target = hash ? document.getElementById(hash) : null;
     if (target) target.scrollIntoView();
     else window.scrollTo(0, 0);
-  }, []);
+  }, [title]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="pt-28 md:pt-32 pb-16">
-        <article className="container mx-auto px-4 max-w-3xl">
-          <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">{title}</h1>
-          <p className="text-sm text-muted-foreground mb-10">Última atualização: {updatedAt}</p>
-          <div className="space-y-8 text-muted-foreground leading-relaxed">{children}</div>
+    <>
+      <Bar />
+      <main className="page" id="conteudo">
+        <article className="page__in">
+          <h1 className="page__title">{title}</h1>
+          <p className="page__date">Última atualização: {updatedAt}</p>
+          <div className="prose">{children}</div>
         </article>
       </main>
-      <Footer />
-    </div>
+      <Foot />
+    </>
   );
 };
 
@@ -39,8 +40,8 @@ interface LegalSectionProps {
 }
 
 export const LegalSection = ({ id, title, children }: LegalSectionProps) => (
-  <section id={id} className="space-y-3 scroll-mt-28">
-    <h2 className="text-xl font-semibold text-foreground">{title}</h2>
+  <section id={id}>
+    <h2>{title}</h2>
     {children}
   </section>
 );

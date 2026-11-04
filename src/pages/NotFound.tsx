@@ -1,23 +1,27 @@
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Bar } from "@/components/site/Bar";
+import { Foot } from "@/components/site/Foot";
 
 const NotFound = () => {
-  const location = useLocation();
-
   useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
+    document.title = "Página não encontrada | Erick.AI";
+  }, []);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
-      </div>
-    </div>
+    <>
+      <Bar />
+      <main className="page" id="conteudo">
+        <div className="page__in">
+          <h1 className="page__title">Essa página não existe.</h1>
+          <p className="page__date">O endereço pode ter mudado ou ter sido digitado errado.</p>
+          <Link className="btn btn--amber" to="/">
+            Voltar para o início
+          </Link>
+        </div>
+      </main>
+      <Foot />
+    </>
   );
 };
 

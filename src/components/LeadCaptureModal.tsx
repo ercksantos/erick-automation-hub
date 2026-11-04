@@ -3,9 +3,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { motion } from "framer-motion";
 import { MessageCircle, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { SITE } from "@/content/site";
 
 interface LeadCaptureModalProps {
   open: boolean;
@@ -83,7 +83,7 @@ export const LeadCaptureModal = ({
     };
 
     try {
-      const res = await fetch("https://bleatinglanternfish-n8n.cloudfy.cloud/webhook/contact-form", {
+      const res = await fetch(SITE.webhookContato, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(webhookData),
@@ -144,10 +144,7 @@ export const LeadCaptureModal = ({
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
+          <div
             className="space-y-2"
           >
             <Label htmlFor="name">Nome</Label>
@@ -160,12 +157,9 @@ export const LeadCaptureModal = ({
               required
               className="bg-background border-border"
             />
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <div
             className="space-y-2"
           >
             <Label htmlFor="email">E-mail</Label>
@@ -178,12 +172,9 @@ export const LeadCaptureModal = ({
               required
               className="bg-background border-border"
             />
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          <div
             className="space-y-2"
           >
             <Label htmlFor="phone">Telefone / WhatsApp</Label>
@@ -197,22 +188,19 @@ export const LeadCaptureModal = ({
               required
               className="bg-background border-border"
             />
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+          <div
             className="pt-2"
           >
             <Button
               type="submit"
               disabled={!isValid || isSubmitting}
-              className="w-full bg-[hsl(var(--cta))] hover:bg-[hsl(var(--cta))]/90 text-[hsl(var(--cta-foreground))] font-bold shadow-lg shadow-[hsl(var(--cta-glow))]/30 h-11"
+              className="w-full font-bold h-11"
             >
               {isSubmitting ? "Liberando acesso..." : "Liberar Chat de Teste"}
             </Button>
-          </motion.div>
+          </div>
 
           <p className="text-xs text-muted-foreground text-center pb-2">
             Seus dados estão seguros. Não enviamos spam.

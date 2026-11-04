@@ -2,100 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* Tokens do shadcn (usados pelo teste grátis, diálogos e toasts), na paleta
+   grafite-âmbar. O visual do site em si mora em src/styles/site.css. */
 @layer base {
   :root {
-    --background: 210 24% 10%;
-    --foreground: 210 20% 98%;
+    --background: 216 22% 9%;
+    --foreground: 210 29% 93%;
 
-    --card: 210 20% 12%;
-    --card-foreground: 210 20% 98%;
+    --card: 215 25% 14%;
+    --card-foreground: 210 29% 93%;
 
-    --popover: 210 24% 10%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 215 25% 14%;
+    --popover-foreground: 210 29% 93%;
 
-    --primary: 188 95% 43%;
-    --primary-foreground: 210 24% 10%;
+    --primary: 36 100% 64%;
+    --primary-foreground: 38 64% 9%;
 
-    --secondary: 160 84% 39%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 215 22% 18%;
+    --secondary-foreground: 210 29% 93%;
 
-    --muted: 210 20% 18%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 215 22% 18%;
+    --muted-foreground: 212 16% 69%;
 
-    --accent: 188 95% 43%;
-    --accent-foreground: 210 24% 10%;
+    --accent: 200 100% 68%;
+    --accent-foreground: 216 22% 9%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 6 90% 70%;
+    --destructive-foreground: 216 22% 9%;
 
-    --border: 210 20% 20%;
-    --input: 210 20% 18%;
-    --ring: 188 95% 43%;
+    --border: 215 22% 24%;
+    --input: 215 22% 24%;
+    --ring: 36 100% 64%;
 
     --radius: 0.75rem;
 
-    /* Custom colors for landing page */
-    --hero-gradient-from: 210 24% 8%;
-    --hero-gradient-to: 210 24% 12%;
-    
-    --success: 160 84% 39%;
-    --success-foreground: 210 20% 98%;
-
-    /* CTA Colors - High contrast for conversions */
-    --cta: 145 100% 50%;
-    --cta-foreground: 210 24% 8%;
-    --cta-glow: 145 100% 45%;
-
-    /* Urgency bar */
-    --urgency: 30 100% 50%;
-    --urgency-foreground: 0 0% 100%;
-
-    /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --success: 200 100% 68%;
+    --success-foreground: 216 22% 9%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
-  }
-}
-
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent;
-  }
-
-  .glow-primary {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
-  }
-
-  .backdrop-blur-glass {
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }

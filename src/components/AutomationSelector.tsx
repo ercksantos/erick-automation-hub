@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
@@ -21,11 +20,8 @@ export const AutomationSelector = ({
         const isSelected = selectedAutomation?.id === automation.id;
         
         return (
-          <motion.div
+          <div
             key={automation.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
           >
             <Card 
               className={`relative cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
@@ -51,14 +47,14 @@ export const AutomationSelector = ({
               
               <CardContent>
                 <Button 
-                  className={`w-full ${isSelected ? "bg-[hsl(var(--cta))] text-[hsl(var(--cta-foreground))] hover:bg-[hsl(var(--cta))]/90" : ""}`}
+                  className={`w-full ${isSelected ? "" : ""}`}
                   variant={isSelected ? "default" : "outline"}
                 >
                   {isSelected ? "Selecionado" : "Teste Grátis"}
                 </Button>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         );
       })}
     </div>

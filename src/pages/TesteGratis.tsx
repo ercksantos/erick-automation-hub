@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { UrgencyBar } from "@/components/UrgencyBar"; // Importação da barra
+import { useEffect, useState } from "react";
+import { Bar } from "@/components/site/Bar";
+import { Foot } from "@/components/site/Foot";
+import { Toaster } from "@/components/ui/toaster";
 import { AutomationSelector } from "@/components/AutomationSelector";
 import { ChatTest } from "@/components/ChatTest";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
-import { motion } from "framer-motion";
 
 export interface Automation {
   id: string;
@@ -21,21 +20,21 @@ const automations: Automation[] = [
     name: "Atendimento de Concessionária",
     description: "Simule o atendimento automatizado para leads de veículos",
     icon: "🚗",
-    webhookUrl: "https://bleatinglanternfish-n8n.cloudfy.cloud/webhook/atendimento-site"
+    webhookUrl: "https://n8n.erickai.com.br/webhook/atendimento-site"
   },
   {
     id: "consultorio",
     name: "Agendamento de Consultório",
     description: "Teste o fluxo de agendamento médico automatizado",
     icon: "🏥",
-    webhookUrl: "https://bleatinglanternfish-n8n.cloudfy.cloud/webhook/atendimento-site"
+    webhookUrl: "https://n8n.erickai.com.br/webhook/atendimento-site"
   },
   {
     id: "contabil",
     name: "Suporte Contábil",
     description: "Experimente o assistente de dúvidas contábeis",
     icon: "📊",
-    webhookUrl: "https://bleatinglanternfish-n8n.cloudfy.cloud/webhook/atendimento-site"
+    webhookUrl: "https://n8n.erickai.com.br/webhook/atendimento-site"
   }
 ];
 
@@ -44,6 +43,16 @@ const TesteGratis = () => {
   const [pendingAutomation, setPendingAutomation] = useState<Automation | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
+
+  // página fora do ar para visitantes: sem link no site e fora do Google enquanto não houver crédito de LLM
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow";
+    document.head.appendChild(meta);
+    document.title = "Teste grátis | Erick.AI";
+    return () => meta.remove();
+  }, []);
 
   const handleAutomationSelect = (automation: Automation) => {
     if (isUnlocked && selectedAutomation?.id === automation.id) {
@@ -63,23 +72,15 @@ const TesteGratis = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* 1. Barra de Urgência no topo */}
-      <UrgencyBar />
 
-      {/* 2. Header logo abaixo */}
-      <Header />
+      <Bar />
 
-      {/* 3. Espaçamento ajustado:
-          pt-36 (mobile) e pt-44 (desktop)
-          Isso garante que o título apareça abaixo do Header e da Barra.
-      */}
-      <main className="pt-36 md:pt-44 pb-16">
+      <Toaster />
+
+      <main id="conteudo" className="pt-32 md:pt-40 pb-16">
         <div className="container mx-auto px-4">
           {/* Header Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <div
             className="text-center mb-12"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -88,7 +89,7 @@ const TesteGratis = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Converse com a IA exatamente como seus clientes conversariam.
             </p>
-          </motion.div>
+          </div>
 
           {/* Automation Selector */}
           <AutomationSelector
@@ -106,30 +107,24 @@ const TesteGratis = () => {
           />
 
           {/* Legend */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+          <p
             className="text-center text-muted-foreground text-sm mt-6"
           >
-            ⚡ Simulação real em tempo real
-          </motion.p>
+            Conversa real com o agente, em tempo real.
+          </p>
 
           {/* Chat Component */}
           {selectedAutomation && isUnlocked && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+            <div
               className="mt-12"
             >
               <ChatTest automation={selectedAutomation} />
-            </motion.div>
+            </div>
           )}
         </div>
       </main>
 
-      <Footer />
+      <Foot />
     </div>
   );
 };

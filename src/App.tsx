@@ -1,33 +1,27 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import TesteGratis from "./pages/TesteGratis";
-import Privacidade from "./pages/Privacidade";
-import Termos from "./pages/Termos";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// a home carrega sozinha; o resto vem só quando alguém abre a página
+const TesteGratis = lazy(() => import("./pages/TesteGratis"));
+const Privacidade = lazy(() => import("./pages/Privacidade"));
+const Termos = lazy(() => import("./pages/Termos"));
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/teste-gratis" element={<TesteGratis />} />
-          <Route path="/privacidade" element={<Privacidade />} />
-          <Route path="/termos" element={<Termos />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <Suspense fallback={null}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        {/* fora do menu e do sitemap enquanto não houver crédito de LLM para o agente responder */}
+        <Route path="/teste-gratis" element={<TesteGratis />} />
+        {/* /privacidade (com #exclusao-de-dados) e /termos estão cadastradas no app da Meta: não mudar */}
+        <Route path="/privacidade" element={<Privacidade />} />
+        <Route path="/termos" element={<Termos />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+  </BrowserRouter>
 );
 
 export default App;
