@@ -29,12 +29,57 @@ export const NAV = [
   { id: "contato", label: "Contato" },
 ];
 
-/* ---------- hero: as conversas da noite ---------- */
-export const HERO_CONVERSAS = [
-  { texto: "Vocês atendem sábado?", hora: "22:47" },
-  { texto: "Qual o valor da avaliação?", hora: "23:05" },
-  { texto: "Ainda tem horário essa semana?", hora: "07:12" },
-  { texto: "Oi? Alguém aí?", hora: "08:30" },
+/* ---------- hero: o fluxo rodando ---------- */
+// A pergunta que o título responde, digitada como num chat com a IA
+export const HERO_PERGUNTA = "o que você faz pela minha empresa?";
+
+// Nós do canvas: x e y são o centro do nó em fração do canvas (fluxo da esquerda para a direita)
+export type NoFluxo = { id: string; nome: string; tipo: string; x: number; y: number; ia?: boolean };
+export const HERO_NOS: NoFluxo[] = [
+  { id: "whatsapp", nome: "WhatsApp", tipo: "gatilho", x: 0.11, y: 0.47 },
+  { id: "roteador", nome: "Roteador", tipo: "decide a rota", x: 0.37, y: 0.47 },
+  { id: "agenda", nome: "Agenda", tipo: "agente de IA", x: 0.63, y: 0.19, ia: true },
+  { id: "duvidas", nome: "Dúvidas", tipo: "agente de IA", x: 0.63, y: 0.47, ia: true },
+  { id: "equipe", nome: "Equipe", tipo: "pessoa assume", x: 0.63, y: 0.75 },
+  { id: "crm", nome: "CRM", tipo: "lead e etapa", x: 0.89, y: 0.47 },
+];
+export const HERO_FIOS: [string, string][] = [
+  ["whatsapp", "roteador"],
+  ["roteador", "agenda"],
+  ["roteador", "duvidas"],
+  ["roteador", "equipe"],
+  ["agenda", "crm"],
+  ["duvidas", "crm"],
+  ["equipe", "crm"],
+];
+
+// Cada execução: a mensagem que chega, a rota que o roteador escolhe, o que sai dela e o que vai pro CRM.
+// "ia" marca a resposta escrita pelo agente (aparece em ciano no log).
+export const HERO_EXECUCOES = [
+  {
+    hora: "22:47",
+    mensagem: "Vocês atendem sábado?",
+    rota: "duvidas",
+    saida: "Atendemos sim, das 8h às 12h. Quer marcar um horário?",
+    ia: true,
+    crm: "lead criado em Novo",
+  },
+  {
+    hora: "23:05",
+    mensagem: "Tem horário na quinta à tarde?",
+    rota: "agenda",
+    saida: "Tenho às 14h e às 16h. Qual fica melhor?",
+    ia: true,
+    crm: "lead movido para Agendamento",
+  },
+  {
+    hora: "07:12",
+    mensagem: "Preciso de um orçamento para três unidades",
+    rota: "equipe",
+    saida: "conversa passada para a equipe, com o resumo",
+    ia: false,
+    crm: "lead movido para Qualificado",
+  },
 ];
 
 /* ---------- serviços: a corrente ---------- */
