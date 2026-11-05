@@ -10,13 +10,13 @@ import { About } from "@/components/site/About";
 import { Contact } from "@/components/site/Contact";
 import { Foot } from "@/components/site/Foot";
 import { ScrollTrigger, useGSAP } from "@/lib/motion";
-import { scrollToId, startSmoothScroll } from "@/lib/scroll";
+import { scrollToId } from "@/lib/scroll";
+import { Spine } from "@/components/site/Spine";
 
 const Index = () => {
   // roda depois dos efeitos das seções: todos os ScrollTriggers já existem aqui
   useGSAP(() => {
     document.title = "Erick Santos | Agentes de IA, CRM e sistemas sob medida";
-    const stop = startSmoothScroll();
     const hash = window.location.hash.slice(1);
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
@@ -29,7 +29,6 @@ const Index = () => {
     });
     return () => {
       alive = false;
-      stop();
     };
   });
 
@@ -38,6 +37,7 @@ const Index = () => {
       <Bar home />
       <main id="conteudo">
         <Hero />
+        <Spine />
         <Chain />
         <Inside />
         <Award />

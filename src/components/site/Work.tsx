@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { PROJETOS, waLink, type Projeto } from "@/content/site";
 import { gsap, ScrollTrigger, prefersReduced, useGSAP } from "@/lib/motion";
 import { WhatsIcon } from "./NodeMark";
+import { SecTag } from "./SecTag";
 
 // Lista de projetos: um aberto por vez, a altura anima em resposta ao clique.
 export const Work = () => {
@@ -37,6 +38,7 @@ export const Work = () => {
     <section className="sec work" id="projetos" ref={root}>
       <div className="wrap">
         <header className="sec__head">
+          <SecTag id="projetos" />
           <h2 className="sec__title">O que já está rodando.</h2>
           <p className="sec__lede">Três projetos feitos para empresas e três produtos meus. Abra cada um para ver o que ele faz.</p>
         </header>

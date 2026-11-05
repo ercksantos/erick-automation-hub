@@ -5,7 +5,7 @@ Site da Erick.AI, a marca de Erick Santos: agentes de IA no WhatsApp, CRM e sist
 ## Stack
 
 - React 18 + TypeScript + Vite
-- GSAP (ScrollTrigger, SplitText, Flip) e Lenis para a rolagem e as animações
+- GSAP (ScrollTrigger, Draggable e Inertia) para as animações, com a rolagem nativa do navegador. A linguagem de movimento é "o site é um fluxo rodando": nós, fios, pacotes e logs de execução
 - CSS próprio em `src/styles/site.css` (paleta grafite-âmbar, fontes Mona Sans e JetBrains Mono em `public/fonts`)
 - Tailwind + shadcn só no teste grátis e nos diálogos
 - Deploy na Vercel: push na `main` publica em https://erickai.com.br

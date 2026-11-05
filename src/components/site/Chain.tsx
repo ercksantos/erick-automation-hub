@@ -1,9 +1,12 @@
 import { useRef } from "react";
 import { SERVICOS } from "@/content/site";
 import { MEDIA, gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
+import { FLOW_ICONS } from "./FlowIcons";
+import { SecTag } from "./SecTag";
 
-// Os quatro serviços como uma corrente: o fio se desenha quando a seção chega e,
-// enquanto ela está na tela, um pulso percorre o fio e acende cada nó por onde passa.
+// Os quatro serviços como nós de um fluxo: cartões ligados por um fio que passa
+// por trás deles. Quando a seção chega, o fio se desenha e os nós aparecem; enquanto
+// ela está na tela, um pacote corre o fio e cada nó acende quando o pacote o atravessa.
 export const Chain = () => {
   const root = useRef<HTMLElement>(null);
 
@@ -12,7 +15,7 @@ export const Chain = () => {
       const el = root.current!;
       const q = gsap.utils.selector(el);
       const list = q(".chain__list")[0] as HTMLElement;
-      const nodes = q(".node") as HTMLElement[];
+      const cards = q(".link") as HTMLElement[];
       const pulse = q(".rail__pulse")[0];
       const track = q(".rail__track")[0];
       const rail = q(".rail")[0] as HTMLElement;
@@ -25,25 +28,23 @@ export const Chain = () => {
 
         gsap
           .timeline({ scrollTrigger: { trigger: list, start: "top 78%", once: true } })
-          .fromTo(".rail__fill", { [axis]: 0 }, { [axis]: 1, duration: 1.3, ease: "power2.inOut" })
-          .from(nodes, { scale: 0, duration: 0.5, ease: "back.out(2.2)", stagger: 0.18 }, 0.2)
-          .from(".link__verb, .link__name, .link__does, .link__facts", { autoAlpha: 0, y: 14, duration: 0.7, ease: "power3.out", stagger: 0.04 }, 0.35);
+          .fromTo(".rail__fill", { [axis]: 0 }, { [axis]: 1, duration: 1.2, ease: "power2.inOut" })
+          .from(cards, { autoAlpha: 0, y: 24, duration: 0.7, ease: "power3.out", stagger: 0.12 }, 0.1);
 
-        // posição de cada nó no fio, de 0 a 1, para acender na hora em que o pulso passa
-        const at = () => {
+        // trecho do fio que cada cartão cobre, de 0 a 1: o nó acende enquanto o pacote está dentro dele
+        const spans = () => {
           const r = rail.getBoundingClientRect();
-          return nodes.map((n) => {
-            const b = n.getBoundingClientRect();
-            return desktop ? (b.left + b.width / 2 - r.left) / r.width : (b.top + b.height / 2 - r.top) / r.height;
+          const len = desktop ? r.width : r.height;
+          return cards.map((c) => {
+            const b = c.getBoundingClientRect();
+            const a = desktop ? b.left - r.left : b.top - r.top;
+            const z = desktop ? b.right - r.left : b.bottom - r.top;
+            return [Math.max(0, a / len), Math.min(1, z / len)];
           });
         };
         const prop = desktop ? "xPercent" : "yPercent";
-        const flash = (n: HTMLElement) => {
-          n.classList.add("is-flash");
-          gsap.delayedCall(0.35, () => n.classList.remove("is-flash"));
-        };
-        const DUR = 3.2;
-        const loop = gsap.timeline({ repeat: -1, repeatDelay: 0.9, paused: true });
+        const DUR = 3.6;
+        const loop = gsap.timeline({ repeat: -1, repeatDelay: 0.8, paused: true });
         const build = () => {
           loop.clear();
           gsap.set(track, { [prop]: 0 });
@@ -51,7 +52,10 @@ export const Chain = () => {
             .set(pulse, { autoAlpha: 1 })
             .fromTo(track, { [prop]: 0 }, { [prop]: 100, duration: DUR, ease: "none" }, 0)
             .to(pulse, { autoAlpha: 0, duration: 0.25 }, DUR - 0.25);
-          at().forEach((p, i) => loop.call(() => flash(nodes[i]), [], Math.max(0, p) * DUR));
+          spans().forEach(([a, z], i) => {
+            loop.call(() => cards[i].classList.add("is-flash"), [], a * DUR);
+            loop.call(() => cards[i].classList.remove("is-flash"), [], Math.min(DUR, z * DUR + 0.25));
+          });
         };
         build();
         ScrollTrigger.create({
@@ -65,6 +69,7 @@ export const Chain = () => {
             if (playing) loop.play(0);
           },
         });
+        return () => cards.forEach((c) => c.classList.remove("is-flash"));
       });
       return () => mm.revert();
     },
@@ -75,6 +80,7 @@ export const Chain = () => {
     <section className="sec chain" id="servicos" ref={root}>
       <div className="wrap">
         <header className="sec__head">
+          <SecTag id="servicos" />
           <h2 className="sec__title">Quatro peças que conversam entre si.</h2>
           <p className="sec__lede">
             Dá para começar por uma e ligar as outras depois. Como eu construo a corrente inteira, o lead que chega pelo site é o
@@ -90,24 +96,30 @@ export const Chain = () => {
             </span>
           </div>
           <ol className="chain__list">
-          {SERVICOS.map((s) => (
-            <li className="link" key={s.id}>
-              <span className="node" aria-hidden="true" />
-              <p className="link__verb">{s.verbo}</p>
-              <h3 className="link__name">{s.nome}</h3>
-              <p className="link__does">{s.faz}</p>
-              <dl className="link__facts">
-                <div>
-                  <dt>Resolve</dt>
-                  <dd>{s.resolve}</dd>
+            {SERVICOS.map((s) => (
+              <li className="link" key={s.id}>
+                <div className="link__head">
+                  <span className="link__icon" aria-hidden="true">
+                    {FLOW_ICONS[s.id]}
+                  </span>
+                  <span className="link__ids">
+                    <span className="link__verb">{s.verbo}</span>
+                    <h3 className="link__name">{s.nome}</h3>
+                  </span>
                 </div>
-                <div className="link__not">
-                  <dt>Não faz</dt>
-                  <dd>{s.naoFaz}</dd>
-                </div>
-              </dl>
-            </li>
-          ))}
+                <p className="link__does">{s.faz}</p>
+                <dl className="link__facts">
+                  <div>
+                    <dt>Resolve</dt>
+                    <dd>{s.resolve}</dd>
+                  </div>
+                  <div className="link__not">
+                    <dt>Não faz</dt>
+                    <dd>{s.naoFaz}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
           </ol>
         </div>
       </div>

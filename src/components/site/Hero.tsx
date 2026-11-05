@@ -1,8 +1,9 @@
-import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useRef, type CSSProperties } from "react";
 import { HERO_EXECUCOES, HERO_FIOS, HERO_NOS, HERO_PERGUNTA, PREMIO, waLink } from "@/content/site";
 import { Draggable, FINE_POINTER, gsap, prefersReduced, ScrollTrigger, useGSAP } from "@/lib/motion";
 import { scrollToId } from "@/lib/scroll";
 import { CheckIcon, NodeMark, TrophyIcon, WhatsIcon } from "./NodeMark";
+import { FLOW_ICONS } from "./FlowIcons";
 
 // O hero é um fluxo de automação rodando de verdade na tela: o título chega como
 // resposta de IA em streaming, e ao lado um canvas monta os nós, liga os fios e
@@ -17,41 +18,6 @@ const TITULO = [
 // momento em que cada pedaço do título aparece, com o ritmo irregular de um streaming
 const TOKEN_AT = [0, 0.07, 0.19, 0.25, 0.38, 0.47];
 
-const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
-const ICONES: Record<string, ReactNode> = {
-  whatsapp: <WhatsIcon />,
-  roteador: (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke}>
-      <circle cx="5" cy="12" r="2" />
-      <path d="M7 12h4M11 12c2.5 0 3-6 6-6h2M11 12h8M11 12c2.5 0 3 6 6 6h2" />
-    </svg>
-  ),
-  agenda: (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke}>
-      <rect x="3.5" y="5" width="17" height="15" rx="3" />
-      <path d="M3.5 10h17M8 3v4M16 3v4M8 14h3" />
-    </svg>
-  ),
-  duvidas: (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke}>
-      <path d="M5 4.5h14a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2h-7l-4.5 3.5V17H5a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2Z" />
-      <path d="M12 8l.9 1.9 1.9.9-1.9.9L12 13.6l-.9-1.9-1.9-.9 1.9-.9Z" />
-    </svg>
-  ),
-  equipe: (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke}>
-      <circle cx="12" cy="8" r="3.5" />
-      <path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5" />
-    </svg>
-  ),
-  crm: (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...stroke}>
-      <rect x="3" y="4" width="5" height="16" rx="1.5" />
-      <rect x="10" y="4" width="5" height="11" rx="1.5" />
-      <rect x="17" y="4" width="4" height="7" rx="1.5" />
-    </svg>
-  ),
-};
 const nomeDo = (id: string) => (HERO_NOS.find((n) => n.id === id)?.nome ?? id).toLowerCase();
 
 type Fio = { from: string; to: string; base: SVGPathElement; lit: SVGPathElement };
@@ -509,7 +475,7 @@ export const Hero = () => {
                   style={{ "--x": n.x, "--y": n.y } as CSSProperties}
                 >
                   <span className="fnode__tile">
-                    {ICONES[n.id]}
+                    {FLOW_ICONS[n.id]}
                     <i className="fnode__badge">
                       <CheckIcon color="#12161c" />
                     </i>

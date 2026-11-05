@@ -1,9 +1,13 @@
 import { FERRAMENTAS, SEGMENTOS, SITE } from "@/content/site";
+import { SecTag } from "./SecTag";
 
 export const About = () => (
   <section className="sec about" id="sobre">
     <div className="wrap about__grid">
-      <h2 className="about__lead">Sou o Erick. Eu construo, do zero, o que a sua empresa usa para atender e vender.</h2>
+      <div>
+        <SecTag id="sobre" />
+        <h2 className="about__lead">Sou o Erick. Eu construo, do zero, o que a sua empresa usa para atender e vender.</h2>
+      </div>
       <div className="about__body">
         <p>
           Sou desenvolvedor e trabalho com <strong>agentes de IA no WhatsApp, CRMs e sistemas sob medida</strong> para pequenas e

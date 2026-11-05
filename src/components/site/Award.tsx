@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { PREMIO } from "@/content/site";
-import { gsap, useGSAP } from "@/lib/motion";
+import { FINE_POINTER, gsap, useGSAP } from "@/lib/motion";
+import { SecTag } from "./SecTag";
 
 // 1º lugar na Crazy AI Talents. A placa "AI Builder" chega com o troféu se
 // desenhando, as faíscas acendem e um brilho atravessa a placa uma vez; com o
@@ -60,7 +61,7 @@ export const Award = () => {
       });
 
       // inclinação da placa: só com mouse de verdade
-      mm.add("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add(`${FINE_POINTER} and (prefers-reduced-motion: no-preference)`, () => {
         const plaque = q(".plaque")[0] as HTMLElement;
         gsap.set(plaque, { transformPerspective: 900 });
         const rx = gsap.quickTo(plaque, "rotationX", { duration: 0.6, ease: "power3" });
@@ -91,6 +92,7 @@ export const Award = () => {
     <section className="sec award" id="premio" ref={root}>
       <div className="wrap">
         <header className="sec__head">
+          <SecTag id="premio" />
           <h2 className="sec__title">
             {PREMIO.colocacao} na {PREMIO.evento}.
           </h2>

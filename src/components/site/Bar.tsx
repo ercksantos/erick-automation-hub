@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { NAV, SITE, waLink } from "@/content/site";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
+import { ScrollTrigger, useGSAP } from "@/lib/motion";
 import { scrollToId, setScrollLocked } from "@/lib/scroll";
 import { NodeMark, WhatsIcon } from "./NodeMark";
 
@@ -9,7 +9,6 @@ type Props = { home?: boolean };
 
 export const Bar = ({ home = false }: Props) => {
   const barRef = useRef<HTMLElement>(null);
-  const fillRef = useRef<HTMLSpanElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState("");
@@ -19,25 +18,11 @@ export const Bar = ({ home = false }: Props) => {
     () => {
       const bar = barRef.current!;
       ScrollTrigger.create({
-        start: 0,
-        end: "max",
-        onUpdate: (s) => gsap.set(fillRef.current, { scaleX: s.progress }),
-      });
-      ScrollTrigger.create({
         start: 10,
         end: "max",
         onToggle: (s) => bar.classList.toggle("is-scrolled", s.isActive),
       });
       if (!home) return;
-      const frase = document.getElementById("frase");
-      if (frase) {
-        ScrollTrigger.create({
-          trigger: frase,
-          start: () => `top ${bar.offsetHeight}`,
-          end: () => `bottom ${bar.offsetHeight}`,
-          onToggle: (s) => bar.classList.toggle("is-amber", s.isActive),
-        });
-      }
       NAV.forEach(({ id }) => {
         const el = document.getElementById(id);
         if (!el) return;
@@ -150,10 +135,6 @@ export const Bar = ({ home = false }: Props) => {
             </svg>
           )}
         </button>
-
-        <div className="bar__progress" aria-hidden="true">
-          <span ref={fillRef} />
-        </div>
       </header>
 
       <div ref={sheetRef} className={`sheet${open ? " is-open" : ""}`} id="menu" aria-hidden={!open}>

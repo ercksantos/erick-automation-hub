@@ -29,6 +29,19 @@ export const NAV = [
   { id: "contato", label: "Contato" },
 ];
 
+/* ---------- as seções como nós do fluxo da página ---------- */
+// Cada seção tem um selo com número e nome, e um nó no fio da lateral.
+export const SECOES = [
+  { id: "servicos", nome: "serviços" },
+  { id: "por-dentro", nome: "por dentro" },
+  { id: "premio", nome: "prêmio" },
+  { id: "frase", nome: "princípio" },
+  { id: "projetos", nome: "projetos" },
+  { id: "como-trabalho", nome: "como trabalho" },
+  { id: "sobre", nome: "sobre" },
+  { id: "contato", nome: "contato" },
+];
+
 /* ---------- hero: o fluxo rodando ---------- */
 // A pergunta que o título responde, digitada como num chat com a IA
 export const HERO_PERGUNTA = "o que você faz pela minha empresa?";
@@ -157,24 +170,21 @@ export const MENSAGENS_ROTEADOR = [
   { texto: "Fiquei com a pele vermelha depois da sessão", rota: "equipe", porque: "Assunto sensível: o agente não arrisca e chama alguém da equipe na hora." },
 ];
 
-export type Etapa = "novo" | "conversa" | "agendado";
-export type CardCrm = { id: string; titulo: string; origem: string; nota: string; etapa: Etapa; destaque?: boolean };
-
-export const ETAPAS: { id: Etapa; nome: string }[] = [
-  { id: "novo", nome: "Novo" },
-  { id: "conversa", nome: "Em conversa" },
-  { id: "agendado", nome: "Agendado" },
-];
-
-export const CARDS_CRM: CardCrm[] = [
-  { id: "c1", titulo: "Limpeza de pele", origem: "WhatsApp, 22:47", nota: "Sábado de manhã, agendado pelo agente", etapa: "agendado", destaque: true },
-  { id: "c2", titulo: "Avaliação facial", origem: "Instagram", nota: "Pediu valores, sem resposta desde segunda", etapa: "conversa" },
-  { id: "c3", titulo: "Pacote de drenagem", origem: "Site", nota: "Chegou pelo formulário hoje cedo", etapa: "novo" },
-  { id: "c4", titulo: "Peeling", origem: "Indicação", nota: "Quer horário depois das 18h", etapa: "conversa" },
-  { id: "c5", titulo: "Retorno pós-sessão", origem: "WhatsApp", nota: "Lembrete enviado na véspera", etapa: "agendado" },
+// O que roda por trás da conversa, passo a passo. "em" é o índice da fala de CONVERSA_DEMO
+// que o passo antecede: o passo roda e só depois a mensagem aparece.
+export type Passo = { id: string; icone: string; nome: string; tipo: string; detalhe: string; hora: string; em: number };
+export const RASTRO: Passo[] = [
+  { id: "gatilho", icone: "whatsapp", nome: "WhatsApp", tipo: "gatilho", detalhe: "mensagem nova de um contato que nunca falou com a clínica", hora: "22:47:02", em: 2 },
+  { id: "roteador", icone: "roteador", nome: "Roteador", tipo: "classifica", detalhe: "pergunta sobre serviço: vai para o agente de atendimento", hora: "22:47:03", em: 2 },
+  { id: "base", icone: "duvidas", nome: "Base de conhecimento", tipo: "consulta", detalhe: "limpeza de pele: cerca de 1 hora, começa com avaliação", hora: "22:47:04", em: 2 },
+  { id: "agenda", icone: "agenda", nome: "Agenda", tipo: "ferramenta", detalhe: "horários livres: sábado de manhã e terça à tarde", hora: "22:47:06", em: 3 },
+  { id: "reserva", icone: "agenda", nome: "Agenda", tipo: "ferramenta", detalhe: "reservado: sábado, 9h", hora: "22:48:12", em: 5 },
+  { id: "crm", icone: "crm", nome: "CRM", tipo: "registro", detalhe: "lead criado com origem WhatsApp, etapa Agendado", hora: "22:48:13", em: 7 },
+  { id: "lembrete", icone: "lembrete", nome: "Lembrete", tipo: "agendado", detalhe: "mensagem na sexta, véspera do horário", hora: "22:48:13", em: 7 },
 ];
 
 /* ---------- frase ---------- */
+export const FRASE_PERGUNTA = "por que tanto agente de IA responde errado?";
 export const FRASE = "A IA não sabe o preço da sua consulta. Alguém precisa contar pra ela.";
 
 export const DIFERENCIAIS = [
